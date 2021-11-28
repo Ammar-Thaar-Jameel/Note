@@ -8,5 +8,10 @@ object Repository {
 
     private val noteDao = NoteDatabase.getInstance.noteDao
 
-   suspend fun insertNote(note: Note) = noteDao.insert(note)
+    suspend fun insertNote(note: Note) = noteDao.insert(note)
+
+
+
+
+    fun getAllNotes()= noteDao.getAllNotes()
 }
