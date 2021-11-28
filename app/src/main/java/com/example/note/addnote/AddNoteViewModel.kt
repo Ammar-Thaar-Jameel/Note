@@ -7,7 +7,7 @@ import com.example.note.model.repository.Repository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class AddNoteViewModel:ViewModel() {
+class AddNoteViewModel : ViewModel() {
 
 
     val noteText = MutableStateFlow<String?>(null)
@@ -17,8 +17,11 @@ class AddNoteViewModel:ViewModel() {
     fun addNote() {
         viewModelScope.launch {
             noteText.value?.let {
-                Repository.insertNote(Note(0, it,noteDescription.value.toString()))
+                Repository.insertNote(Note(0, it, noteDescription.value.toString()))
+                noteText.emit("")
+                noteDescription.emit("")
             }
+
         }
     }
 }

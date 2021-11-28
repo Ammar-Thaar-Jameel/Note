@@ -70,7 +70,7 @@ dependencies {
     //bottom navigation
     implementation  'io.ak1:bubbletabbar:1.0.8'
 
-
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.2"
 
 
 }

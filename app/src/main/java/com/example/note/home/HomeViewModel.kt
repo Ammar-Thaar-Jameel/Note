@@ -6,16 +6,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.note.model.database.entity.Note
 import com.example.note.model.repository.Repository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel(), HomeInteractionListener {
 
 
-    private val _notes = MutableLiveData<List<Note>>()
-    val notes: LiveData<List<Note>> = _notes
+    private val _notes = MutableStateFlow<List<Note>>(emptyList())
+    val notes: StateFlow<List<Note>> = _notes
 
-
+   
     init {
         getAllNotes()
     }
@@ -23,8 +25,8 @@ class HomeViewModel : ViewModel(), HomeInteractionListener {
 
     private fun getAllNotes() {
         viewModelScope.launch {
-            Repository.getAllNotes().collect {
-                _notes.postValue(it)
+            Repository.getAllNotes().collect() {
+                _notes.emit(it)
             }
 
         }
